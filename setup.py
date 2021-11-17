@@ -6,20 +6,15 @@ from setuptools import setup
 
 with open("version", "r") as f:
     version = f.read()
-desc = "Generate an ASCII Art from keyword put in the cli"
-url = "https://github.com/Nathanlauga/ascii-art-generator-cli"
+
+desc = "datasource package for mission transition"
+url = "https://github.com/dataforgoodfr/offseason_missiontransition_datasource"
 
 setup(
-    name="ascii_art",
+    name="datasource",
     version=version,
     description=desc,
-    author="Nathan LAUGA",
-    author_email="nathan.lauga@protonmail.com",
+    author="Mission Transition",
     url=url,
     packages=find_packages(),
-    entry_points={
-        "console_scripts": [
-            "ascii-generator = ascii_art.cmd:ascii_generator",
-        ],
-    },
 )
