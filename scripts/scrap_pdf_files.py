@@ -4,6 +4,7 @@ an aid on aides-territoires.beta.gouv.fr API
 import json
 import re
 from io import BytesIO
+from tabnanny import verbose
 from urllib.parse import urlparse
 
 import pandas as pd
@@ -46,7 +47,7 @@ def is_url_working(url, logger):
     if not url.startswith("http"):
         return False, "url not starting with http"
 
-    logger.info("%s" % url)
+    # logger.info("%s" % url)
 
     try:
         resp = get_data_from_url(url)
@@ -129,18 +130,21 @@ def scrap_pdf_in_url(resp):
             domain = parsed_url.netloc
             pdf_url = "http://" + domain + pdf_url
 
-        logger.info("PDF Analyse : %s" % pdf_url)
-        txt = get_pdf_content_from_url(pdf_url)
+        # logger.debug("PDF Analyse : %s" % pdf_url)
+        try:
+            txt = get_pdf_content_from_url(pdf_url)
 
-        find_word = []
+            find_word = []
 
-        for w in CRITERIA_WORDS:
-            if w in txt:
-                find_word.append(w)
+            for w in CRITERIA_WORDS:
+                if w in txt:
+                    find_word.append(w)
 
-        if len(find_word) != 0:
-            logger.info("CRITERIAS FOUND with %s" % (" ".join(find_word)))
-            pdf_with_criterias.append(pdf_url)
+            if len(find_word) != 0:
+                # logger.debug("CRITERIAS FOUND with %s" % (" ".join(find_word)))
+                pdf_with_criterias.append(pdf_url)
+        except:
+            continue
 
     return pdf_with_criterias
 
@@ -224,6 +228,7 @@ def get_data_aides_results(data, logger):
             aides_list.append(current_aide)
         except Exception as e:
             logger.error(e)
+            raise e
 
     return aides_list
 
@@ -267,7 +272,7 @@ def srap_pdf():
         aides_list += aides
 
     df = pd.DataFrame(aides_list)
-    df.to_csv("data/aides.csv", index=False)
+    df.to_csv("data/aides_v2.csv", index=False)
 
 
 if __name__ == "__main__":
