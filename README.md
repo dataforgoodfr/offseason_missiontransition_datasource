@@ -18,3 +18,10 @@ For each one gives the information of :
 pip install .
 python scripts/scrap_pdf_files.py
 ```
+
+## How to read a pdf from url
+Following script shows how to read content from a sample pdf, using csv file generated
+by scrap_pdf_files.py. It also creates a .json file with associated pdfs urls & contents.
+```
+python scripts/read_pdf_content_tutorial.py
+```
