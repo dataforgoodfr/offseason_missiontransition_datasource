@@ -3,12 +3,9 @@ an aid on aides-territoires.beta.gouv.fr API
 """
 import json
 import re
-from io import BytesIO
-from tabnanny import verbose
 from urllib.parse import urlparse
 
 import pandas as pd
-import PyPDF2
 
 from datasource.io import get_data_from_url
 from datasource.utils import get_logger
@@ -64,42 +61,6 @@ def is_url_working(url, logger):
         return False, "url changed to %s" % resp.url
 
     return True, resp
-
-
-def get_pdf_content_from_url(pdf_url):
-    """Extract all the text from a pdf url
-
-    Parameters
-    ----------
-    pdf_url : str
-        url of the pdf
-
-    Returns
-    -------
-    str
-        string of all the PDF content
-
-    Raises
-    ------
-    ValueError
-        pdf_url must ends with '.pdf'
-    """
-
-    if not pdf_url.endswith(".pdf"):
-        raise ValueError("pdf_url must ends with '.pdf'")
-
-    response = get_data_from_url(pdf_url)
-    my_raw_data = response.content
-
-    full_text = ""
-
-    with BytesIO(my_raw_data) as data:
-        read_pdf = PyPDF2.PdfFileReader(data)
-
-        for page in range(read_pdf.getNumPages()):
-            full_text += " " + read_pdf.getPage(page).extractText().lower()
-
-    return full_text
 
 
 def scrap_pdf_in_url(resp):
