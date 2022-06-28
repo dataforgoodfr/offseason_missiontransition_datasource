@@ -2,6 +2,7 @@
 an aid on aides-territoires.beta.gouv.fr API
 """
 import json
+import os
 import re
 from urllib.parse import urlparse
 
@@ -11,6 +12,8 @@ from datasource.io import get_data_from_url
 from datasource.utils import get_logger
 
 # DEFINING GLOBAL VARIABLES
+from scripts.read_pdf_files import get_pdf_content_from_url
+
 API_URL = "https://aides-territoires.beta.gouv.fr/api/aids/"
 CRITERIA_WORDS = ["conditions", "critères", "éligible", "éligibilité"]
 logger = get_logger("SCRAP_PDF_FROM_API")
@@ -221,7 +224,10 @@ def scrap_current_api_page(url, logger=None):
     return next_url, aides_list
 
 
-def srap_pdf():
+def srap_pdf(
+        directory: str,
+        csv: str,
+):
     """Main script to scrap and find pdfs given the differents url"""
     aides_list = []
 
@@ -233,8 +239,11 @@ def srap_pdf():
         aides_list += aides
 
     df = pd.DataFrame(aides_list)
-    df.to_csv("data/aides_v2.csv", index=False)
+    df.to_csv(os.path.join(directory, csv), index=False)
 
 
 if __name__ == "__main__":
-    srap_pdf()
+    srap_pdf(
+        directory="data",
+        csv="aides_v2.csv"
+    )

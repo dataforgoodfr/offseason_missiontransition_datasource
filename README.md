@@ -14,10 +14,27 @@ For each one gives the information of :
 
 ## Install
 
+Create a virtual environment (and activate it): see https://docs.python.org/3/library/venv.html
+
+Use python 3.7
+
+Note that the library pdftotext might require additional configuration steps; see https://pypi.org/project/pdftotext/
+
 ```
-pip install .
+pip install -r requirements.txt
+````
+
+## How to run all scripts
+Before running this script, you should take care to the configuration parameters/ 
+```
+python scripts/main.py
+```
+
+## How to scrap pdf files
+Following scripts scraps all interesting PDF files. 
+```
 python scripts/scrap_pdf_files.py
-```
+``
 
 ## How to read a pdf from url
 Following script shows how to read content from a sample pdf, using csv file generated
