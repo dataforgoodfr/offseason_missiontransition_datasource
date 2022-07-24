@@ -9,14 +9,14 @@ SCRAP_PDF: bool = False
 # input and output directory of the pdf scrapping and content extraction
 DATA_DIRECTORY: str = "../data"
 # input and output CSV of the pdf scrapping and content extraction
-CSV_NAME: str = "aides_v2.csv"
+CSV_NAME: str = "aides_v3.csv"
 
 # Nb samples with PDF on which the final content should be computed.
 # If None, all PDF content will be computed
-NB_SAMPLES: Optional[int] = 5
+NB_SAMPLES: Optional[int] = None
 # Boolean indicating whether special not yet removed characters should be printed,
 # to ease the identification of these characters to be removed
-DEBUG_PRINT: bool = True
+DEBUG_PRINT: bool = False
 
 if __name__ == "__main__":
 

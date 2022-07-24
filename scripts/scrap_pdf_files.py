@@ -131,6 +131,7 @@ def get_one_aide_data(aide, logger):
     """
     global NUM_SCRAP
     name = aide["name"]
+    aide_id = aide["id"]
     aide_url = aide["url"]
     orig_url = aide["origin_url"]
     app_url = aide["application_url"]
@@ -138,7 +139,7 @@ def get_one_aide_data(aide, logger):
     logger.info("[%i] - Analyse %s" % (NUM_SCRAP, aide_url))
     NUM_SCRAP = NUM_SCRAP + 1
 
-    current_aide = {"name": name, "url": aide_url}
+    current_aide = {"name": name, "url": aide_url, "id": aide_id}
 
     pdfs = []
 
